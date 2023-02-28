@@ -1,6 +1,7 @@
 const express = require("express");
 const mongodb = require("mongodb");
 const routes = require("./routes");
+const bodyParser = require("body-parser");
 
 // Crear el servidor
 const app = express();
@@ -14,6 +15,10 @@ client.connect(err => {
     // perform actions on the collection object
     client.close();
 });
+
+// Habilitar el bodyParser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Habilitar Routing
 app.use("/", routes());
