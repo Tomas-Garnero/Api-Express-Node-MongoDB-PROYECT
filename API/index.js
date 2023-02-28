@@ -1,16 +1,18 @@
 const express = require("express");
-const mongoose = require("mongoose");
+const mongodb = require("mongodb");
 
 // Crear el servidor
 const app = express();
 
 // Conectar a MongoDB
-mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/veterinaria", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-})
+const MongoClient = mongodb.MongoClient;
+const uri = "mongodb://localhost/veterinaria";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+    const collection = client.db("test").collection("devices");
+    // perform actions on the collection object
+    client.close();
+});
 
 // Puerto y arrancar el servidor
 app.listen(4000, () => {
