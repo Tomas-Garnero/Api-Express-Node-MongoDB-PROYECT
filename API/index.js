@@ -1,5 +1,6 @@
 const express = require("express");
 const mongodb = require("mongodb");
+const routes = require("./routes");
 
 // Crear el servidor
 const app = express();
@@ -13,6 +14,9 @@ client.connect(err => {
     // perform actions on the collection object
     client.close();
 });
+
+// Habilitar Routing
+app.use("/", routes());
 
 // Puerto y arrancar el servidor
 app.listen(4000, () => {
